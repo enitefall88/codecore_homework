@@ -8,8 +8,8 @@ const readlineInstance = readline.createInterface({
 let todoList = {
     todos: [],
     mainMenu: function () {
-        console.log('(v) View | (n) New | (cX) Complete | (dX) Delete | (q) Quit ');
-        readlineInstance.question('Choose your destiny...', (answer) => {
+        console.log('(v) View | (n) New | (cX) Complete | (dX) Delete | (q) Quit | Choose your destiny... ');
+        readlineInstance.question('', (answer) => {
             switch (answer.trim()) {
                 case 'v':
                     this.viewTodo();
@@ -17,10 +17,10 @@ let todoList = {
                 case 'n':
                     this.addTodo();
                     break;
-                case 'cX':
+                case 'c': 
                     this.toggleCompleted();
                     break;
-                case 'dX':
+                case 'd':
                     this.deleteTodo();
                     break;
                 case 'q':
@@ -61,16 +61,21 @@ let todoList = {
 
     },
 
-    toggleCompleted: function (position) {
-        readlineInstance.question('please choose your todo', answer => {
+    toggleCompleted: function () {
+        console.log("Please choose your todo");
+        readlineInstance.question('', answer => {
             this.todos[answer - 1].completed = !this.todos[answer - 1].completed;
+            console.log('Completed ' + `"${this.todos[answer-1].todoText}"`)
             this.mainMenu();
         })
 
     },
 
+
+
     deleteTodo: function () {
-        readlineInstance.question('Enter a number to delete a todo', answer => {
+        console.log("Enter a number to delete")
+        readlineInstance.question('', answer => {
             this.todos.splice(parseInt(answer - 1), 1);
             this.mainMenu();
         })
