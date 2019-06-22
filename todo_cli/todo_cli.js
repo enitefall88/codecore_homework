@@ -8,7 +8,7 @@ const readlineInstance = readline.createInterface({
 let todoList = {
     todos: [],
     mainMenu: function () {
-        console.log('(v) View | (n) New | (cX) Complete | (dX) Delete | (q) Quit | Choose your destiny... ');
+        console.log('(v) View | (n) New | (c) Complete | (d) Delete | (q) Quit | Choose your destiny... ');
         readlineInstance.question('', (answer) => {
             switch (answer.trim()) {
                 case 'v':
