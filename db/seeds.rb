@@ -1,31 +1,27 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
-Post.delete_all
-Comment.delete_all
+Post.destroy_all
+Comment.destroy_all
 
-NUM_POSTS = 50
-
-NUM_POSTS.times do
-    created_at = Faker::Date.backward(365 * 5)
+50.times do
+    created_at = Faker::Date.backward(365)
     p = Post.create(
-      # Faker is a ruby module. We access classes
-      # or other modules inside of it with ::.
-      # Here, Hacker is a class inside of the
-      # Faker module
-      title: Faker::Hacker.say_something_smart,
-      body: Faker::GreekPhilosophers.quote,
-      created_at: created_at,
-      updated_at: created_at    
+        title: Faker::Lorem.sentence(5, true, 5),
+        body: Faker::Lorem.paragraph(5, true, 5),
+        created_at: created_at,
+        updated_at: created_at
     )
-    
+
+    if p.valid?
+        rand(0..10).times do
+            p.comments << Comment.new(
+                body: Faker::GreekPhilosophers.quote,
+            )
+        end
+    end
 end
 
 posts = Post.all
+comments = Comment.all
 
-puts Cowsay.say("Generated #{posts.count} posts", :frogs)
-  
+puts Cowsay.say("Generated #{posts.count} posts", :frog) 
+puts Cowsay.say("Generated #{posts.count} posts", :frog)
+puts Cowsay.say("Generated #{comments.count} comments", :frog) 

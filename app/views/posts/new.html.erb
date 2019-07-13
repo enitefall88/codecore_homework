@@ -1,24 +1,2 @@
-  
-<div class="form-group">
-    <%= form_with(model: @post, local: true) do |form| %>
-        <% if @post.errors.present? %>
-            <div class="form-errors">
-                <%= @post.errors.full_messages.join(",") %>
-            </div>
-        <% end %>
 
-        <div class="card-body m-2">
-            <%= form.label :title %> <br>
-            <%= form.text_field :title, cols: 50, rows: 2, class: "form-control" %>
-        </div>
-
-        <div class="card-body m-2">
-            <%= form.label :body %> <br>
-            <%= form.text_area :body, cols: 50, rows: 10, class: "form-control" %>
-        </div>
-
-        <div class="ml-5" >
-            <%= form.submit "Create Post", class: "btn btn-primary text-primary bg-light" %>
-        </div>
-    <% end %>
-</div>
+<%= render "form" %>
