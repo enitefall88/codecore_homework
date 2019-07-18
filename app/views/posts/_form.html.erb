@@ -1,5 +1,5 @@
 <div class="form-group m-2">
-    <%= form_with(mode: @post, local: true) do |form| %>
+    <%= form_with(model: @post, local: true) do |form| %>
         <% if @post.errors.present? %>
             <div class="form-errors">
                 <%= @post.errors.full_messages.join(",") %>
