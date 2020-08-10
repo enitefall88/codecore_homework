@@ -1,0 +1,58 @@
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title m-2">
+            <%= @post.title %>
+        </h5>
+        <p class="card-text text-dark m-2">
+            <%= @post.body %>
+        </p>
+        •
+        <small>Posted: <%= time_ago_in_words(@post.created_at) %> ago </small>
+        •
+        <small>Last Edited: <%= time_ago_in_words(@post.updated_at) %> ago </small>
+    </div>
+    <div class="card-body">
+        <small> <%= link_to("Edit", edit_post_path(@post.id)) %> </small> •
+        <small> <%= link_to("Delete", post_path(@post.id), method: :delete, data: { confirm: "Are you sure?" }) %> </small>
+    </div>
+</div>
+
+<h2 class="m-2">Post Comment</h2>
+
+<%= form_with(model: [@post, @comment], local: true) do |f| %>
+    <% if @post.errors.present? %>
+        <p class="form-errors">
+            <%= @post.errors.full_messages.join(", ") %>
+        </p>
+    <% end %>
+
+    <div class="m-2">
+        <%= f.text_area(:body, cols: 50, rows: 5, placeholder: "Any comments?") %>
+    </div>
+
+    <%= f.submit "Submit Comment", class: "m-2 btn btn-primary bg-light text-primary" %>
+<% end %>
+
+<h2 class="m-2">Comments:</h2>
+
+<ul class="comments-list m-2">
+    <% @comments.each do |comment| %>
+        <li>
+            <p>
+                <%= comment.body %> <br>
+                •
+                <small>Commented <%= time_ago_in_words(comment.created_at) %> ago</small>
+                <small>
+                    <%= link_to(
+                        "Delete",
+                        post_comment_path(@post.id, comment.id),
+                        method: :delete,
+                        data: {
+                            confirm: "Are you sure?"
+                        }
+                    ) %>
+                </small>
+            </p>
+        </li>
+    <% end %>
+</ul>
